@@ -8,7 +8,6 @@
 use function Swoole\Coroutine\run;
 class MySqlPool
 {
-    protected $poolSize; //最大连接数
     protected $pool; //存储连接对象
     private $config;
     private static $instance;

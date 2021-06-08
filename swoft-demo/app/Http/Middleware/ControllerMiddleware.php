@@ -15,6 +15,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Swoft\Bean\Annotation\Mapping\Bean;
 use Swoft\Exception\SwoftException;
+use Swoft\Http\Message\ContentType;
 use Swoft\Http\Message\Request;
 use Swoft\Http\Server\Contract\MiddlewareInterface;
 use function context;
@@ -46,10 +47,13 @@ class ControllerMiddleware implements MiddlewareInterface
         /** @var  $ret \Swoft\Http\Message\Response*/
         $ret =$handler->handle($request);
         $p1 = $ret->getData();
-        $data[] = $p1;
+        if(is_object($p1)){
+            return response(ContentType::JSON)->withData(json_encode($p1));
+        }
+       /* $data[] = $p1;
         $p2 = NewPro(1000, "中间件加入的商品");
         $data[] = $p2;
-        return response()->withData($data);
+        return response(ContentType::JSON)->withData($data);*/
         // after request handle
     }
 }

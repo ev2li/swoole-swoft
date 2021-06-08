@@ -9,6 +9,7 @@
 namespace App\Controller;
 
 
+use App\lib\ProductEntity;
 use Swoft\Context\Context;
 use Swoft\Http\Message\ContentType;
 use Swoft\Http\Message\Response;
@@ -37,13 +38,23 @@ class ProductController
     }
 
     /**
-     * @RequestMapping("{id}", params={"id"="\d+"},method={RequestMethod::GET})
+     * @RequestMapping("{id}", params={"id"="\d+"},method={RequestMethod::GET,RequestMethod::POST})
      */
-    public function prod_detail(int $id, Response $response){
-        $p = NewPro($id, "测试商品");
+    public function prod_detail(int $id){
+//        request()->get("type", "default type");
+        $p = NewPro($id, "测试商品-链式");
+        $product = jsonForObject(ProductEntity::class);
+        var_dump($product);
+        if(isGet()){
+            return $p;
+        }else if (isPost()){
+            $p->name = "修改商品";
+            return $p;
+        }
+
         //return response()->withContentType("application/json")->withData([$p]);
 //        return $response->withContentType("application/json")->withData([$p]);
 //        return \response(ContentType::JSON)->withData([$p]);
-        return $p;
+
     }
 }

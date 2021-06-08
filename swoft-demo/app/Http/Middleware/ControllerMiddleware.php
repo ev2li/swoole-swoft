@@ -43,9 +43,13 @@ class ControllerMiddleware implements MiddlewareInterface
         }
 
         // before request handle
-
-        return $handler->handle($request);
-
+        /** @var  $ret \Swoft\Http\Message\Response*/
+        $ret =$handler->handle($request);
+        $p1 = $ret->getData();
+        $data[] = $p1;
+        $p2 = NewPro(1000, "中间件加入的商品");
+        $data[] = $p2;
+        return response()->withData($data);
         // after request handle
     }
 }

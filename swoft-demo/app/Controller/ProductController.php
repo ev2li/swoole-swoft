@@ -16,7 +16,7 @@ use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
-//use App\Http\Middleware;
+use App\Http\Middleware\ControllerMiddleware;
 /**
  * Class ProductController
  * @package App\Controller

@@ -55,5 +55,6 @@ class ControllerMiddleware implements MiddlewareInterface
         $data[] = $p2;
         return response(ContentType::JSON)->withData($data);*/
         // after request handle
+        return response(ContentType::JSON)->withData(json_encode($p1));
     }
 }

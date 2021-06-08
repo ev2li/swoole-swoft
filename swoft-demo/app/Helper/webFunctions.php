@@ -32,10 +32,10 @@ function jsonForObject($class){
 
 
 function invokeSetMethod($name, ReflectionClass $class_obj, $jsonMap, &$class_instance){
-    var_dump($jsonMap);
+//    var_dump($jsonMap);
     //把ProdId转换成Prod_Id
     $filter_name = strtolower(preg_replace('/(?<=[a-z])([A-Z])/', '_$1',  $name));
-    echo $filter_name.PHP_EOL;
+//    echo $filter_name.PHP_EOL;
     $props = $class_obj->getProperties(ReflectionProperty::IS_PRIVATE);
     foreach ($props as $prop){
         if(strtolower($prop->getName()) == $filter_name) { //存在对应的私有属性

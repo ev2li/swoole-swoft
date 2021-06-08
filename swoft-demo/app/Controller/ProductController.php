@@ -11,6 +11,7 @@ namespace App\Controller;
 
 use App\lib\ProductEntity;
 use Swoft\Context\Context;
+use Swoft\Db\DB;
 use Swoft\Http\Message\ContentType;
 use Swoft\Http\Message\Response;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
@@ -18,6 +19,7 @@ use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use App\Http\Middleware\ControllerMiddleware;
+
 /**
  * Class ProductController
  * @package App\Controller
@@ -42,19 +44,23 @@ class ProductController
      */
     public function prod_detail(int $id){
 //        request()->get("type", "default type");
-        $p = NewPro($id, "测试商品-链式");
-        $product = jsonForObject(ProductEntity::class);
-        var_dump($product);
+        //$p = NewPro($id, "测试商品-链式");
+        $product = DB::selectOne("select * from products where prod_id = ?", [$id]);
+        //var_dump($product);
+        /** @var  $product ProductEntity*/
+        //$product = jsonForObject(ProductEntity::class);
+//        echo $product->getProdName().PHP_EOL;
+        //var_dump($product);
         if(isGet()){
-            return $p;
+            return $product;
         }else if (isPost()){
-            $p->name = "修改商品";
-            return $p;
+            $product->name = "修改商品";
+            return $product;
         }
 
         //return response()->withContentType("application/json")->withData([$p]);
 //        return $response->withContentType("application/json")->withData([$p]);
-//        return \response(ContentType::JSON)->withData([$p]);
+//        return \returnesponse(ContentType::JSON)->withData([$p]);
 
     }
 }

@@ -19,6 +19,7 @@ use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use App\Http\Middleware\ControllerMiddleware;
+use Swoft\Validator\Annotation\Mapping\Validate;
 
 /**
  * Class ProductController
@@ -40,6 +41,7 @@ class ProductController
     }
 
     /**
+     * @Validate(validator="product")
      * @RequestMapping("{id}", params={"id"="\d+"},method={RequestMethod::GET,RequestMethod::POST})
      */
     public function prod_detail(int $id){

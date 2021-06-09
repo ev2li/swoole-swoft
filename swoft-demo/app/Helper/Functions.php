@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__."/webFunctions.php");
+require_once(__DIR__."/OrderFunctions.php");
 function NewPro(int $pid, string $name) {
     $p = new stdClass();
     {

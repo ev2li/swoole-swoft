@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\MyValidator;
+namespace App\MyValidator;
 
 use Swoft\Validator\Annotation\Mapping\Validator;
 use Swoft\Validator\Annotation\Mapping\IsFloat;

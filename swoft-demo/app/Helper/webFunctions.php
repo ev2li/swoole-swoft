@@ -36,9 +36,10 @@ function invokeSetMethod($name, ReflectionClass $class_obj, $jsonMap, &$class_in
     //把ProdId转换成Prod_Id
     $filter_name = strtolower(preg_replace('/(?<=[a-z])([A-Z])/', '_$1',  $name));
 //    echo $filter_name.PHP_EOL;
+    $filter_name_ForSwoft = lcfirst($name); //ucfirst
     $props = $class_obj->getProperties(ReflectionProperty::IS_PRIVATE);
     foreach ($props as $prop){
-        if(strtolower($prop->getName()) == $filter_name) { //存在对应的私有属性
+        if(strtolower($prop->getName()) == $filter_name || $prop->getName() == $filter_name_ForSwoft) { //存在对应的私有属性
             $method = $class_obj->getMethod("set".$name);
             $args = $method->getParameters(); //取出参数
             if(count($args) == 1 && isset($jsonMap[$filter_name])){

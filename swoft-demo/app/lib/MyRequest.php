@@ -17,6 +17,12 @@ class MyRequest
         return clone $this;
     }
 
+    public function go(callable $func){ //运行协程调用
+        sgo(function () use ($func){
+            $func();
+        });
+    }
+
     public function then(callable $func){
         if($this->do){
            $this->result = $func();

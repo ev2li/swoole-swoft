@@ -10,6 +10,7 @@ namespace App\Controller;
 
 
 use App\lib\ProductEntity;
+use App\Models\Products;
 use Swoft\Context\Context;
 use Swoft\Db\DB;
 use Swoft\Http\Message\ContentType;
@@ -49,7 +50,26 @@ class ProductController
     public function prod_detail(int $id){
 //        request()->get("type", "default type");
         //$p = NewPro($id, "测试商品-链式");
-        $product = DB::selectOne("select * from products where prod_id = ?", [$id]);
+        //$product = DB::db("test")->selectOne("select * from products where prod_id = ?", [$id]);
+
+        /*$product = DB::query("swoftdb.pool")
+            ->getConnection()->selectOne("select * from products where prod_id = :id", ["id" => $id]);*/
+       /* $product = DB::table("product")->get();
+        $product = DB::table("product")->where("prod_id","=",$id)->select("prod_id")->first();*/
+
+       /*$product = DB::table("products")
+           ->join("products_class", "products.prod_cid", "products_class.pclass_id")
+           ->select("products.*", "products_class.pclass_name")
+           ->where("products.prod_id", $id)
+           ->first();*/
+
+       $product = Products::find($id);
+       if($product){
+           sgo(function () use($product){
+               $product->increment("prod_click");
+           });
+       }
+
         //var_dump($product);
         /** @var  $product ProductEntity*/
         //$product = jsonForObject(ProductEntity::class);

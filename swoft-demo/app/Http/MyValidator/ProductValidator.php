@@ -11,13 +11,13 @@ use Swoft\Validator\Annotation\Mapping\IsString;
  */
 class ProductValidator {
     /**
-     * @IsString()
+     * @IsString(message="商品名称不能为空")
      * @var string
      */
     protected $prod_name;
 
     /**
-     * @IsFloat()
+     * @IsFloat(message="商品价格不能为空")
      * @var float
      */
     protected $prod_price;

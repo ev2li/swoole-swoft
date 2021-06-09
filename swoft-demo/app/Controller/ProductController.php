@@ -21,6 +21,8 @@ use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
 use App\Http\Middleware\ControllerMiddleware;
 use Swoft\Validator\Annotation\Mapping\Validate;
 
+
+
 /**
  * Class ProductController
  * @package App\Controller
@@ -33,7 +35,7 @@ class ProductController
      * @RequestMapping("/product", method={RequestMethod::GET})
      */
     public function prod_list(): object {
-        $req = Context::get()->getRequest();
+//        $req = Context::get()->getRequest();
         $res = Context::get()->getResponse();
          return $res->withContentType("application/json")
              ->withData([NewPro(101, "swoft框架测试")
@@ -56,7 +58,7 @@ class ProductController
         if(isGet()){
             return $product;
         }else if (isPost()){
-            $product->name = "修改商品";
+//            $product['prod_name'] = "修改商品";
             return $product;
         }
 

@@ -1,7 +1,7 @@
 <?php
 
 use Swoft\Http\Server\HttpServer;
-
+use App\Http\MyValidator\ProductValidator;
 return [
     'logger'     => [
         'flushRequest' => false,
@@ -28,5 +28,15 @@ return [
             'modes' =>  'NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES',
             'fetchMode' => PDO::FETCH_ASSOC,
         ]
+    ],
+
+    'db.pool'   => [
+        'class' => \Swoft\Db\Pool::class,
+        'database'  => \bean("db"),
+        'minActive' =>  10,
+        'maxActive' => 20,
+        'maxWait'   => 0,
+        'maxWaitTime'  => 0,
+        'maxIdleTime'   => 60
     ]
 ];

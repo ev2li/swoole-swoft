@@ -6,17 +6,20 @@
  * Time: 17:25
  */
 
-namespace App\MyValidator;
+namespace App\Http\MyValidator;
 
+use App\Http\MyValidator\myrules\OrderDetail;
+use Swoft\Validator\Annotation\Mapping\IsArray;
 use Swoft\Validator\Annotation\Mapping\IsFloat;
 use Swoft\Validator\Annotation\Mapping\IsInt;
-use Swoft\Validator\Annotation\Mapping\IsString;
+//use Swoft\Validator\Annotation\Mapping\IsString;
 use Swoft\Validator\Annotation\Mapping\Max;
 use Swoft\Validator\Annotation\Mapping\Min;
 use Swoft\Validator\Annotation\Mapping\Validator;
 
 /**
  * 商品验证
+ * @since 2.0
  * @Validator(name="orders")
  */
 class OrderValidator
@@ -48,4 +51,11 @@ class OrderValidator
      * @var int
      */
     protected $order_money;
+
+    /**
+     * @IsArray(message="订单明细不能为空")
+     * @OrderDetail(message="订单明细不正确")
+     * @var array
+     */
+    protected $order_item; //商品订单明细数据，是一个数组
 }

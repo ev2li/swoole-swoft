@@ -49,3 +49,38 @@ function invokeSetMethod($name, ReflectionClass $class_obj, $jsonMap, &$class_in
     }
     return $name;
 }
+
+function mapToModelsArray(array $maps, $class, $fill = [] ,$toArray = false){
+    $ret = [];
+
+    foreach ($maps as $map){
+        $getObject = mapToModel($map, $class);
+        if($getObject){
+            if($fill && count($fill) > 0)
+                $getObject->fill($fill);
+
+            if($toArray)
+                $ret[] = $getObject->getModelAttrubutes(); //数组
+            else
+                $ret[] = $getObject; //实体对象
+        }
+    }
+
+    return $ret;
+}
+
+function mapToModel(array $map,$class){ //把数据映射成实体
+    try{
+        $class_obj = new ReflectionClass($class);
+        $class_instance = $class_obj->newInstance(); //根据反射对象创建实例
+        $methods = $class_obj->getMethods(ReflectionMethod::IS_PUBLIC);
+        foreach ($methods as $method){
+            if(preg_match("/set(\w+)/", $method->getName(), $matchs)){
+                invokeSetMethod($matchs[1], $class_obj, $map, $class_instance);
+            };
+        }
+        return $class_instance;
+    }catch (Exception $e){
+        return null;
+    }
+}

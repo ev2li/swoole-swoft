@@ -29,3 +29,13 @@ function isGet(){
 function isPost(){
     return request()->getMethod() == \Swoft\Http\Server\Annotation\Mapping\RequestMethod::POST;
 }
+
+function tx(callable $func, &$result = null){
+    \Swoft\Db\DB::beginTransaction();
+    try{
+        $result =  $func();
+        \Swoft\Db\DB::commit();
+    }catch (Exception $exception) {
+        \Swoft\Db\DB::rollBack();
+    }
+}

@@ -62,5 +62,32 @@ return [
         'maxWait'   => 0,
         'maxWaitTime'  => 0,
         'maxIdleTime'   => 60
+    ],
+    'httpDispatcher'    => [
+        // ......
+        'afterMiddlewares' => [
+            \Swoft\Http\Server\Middleware\ValidatorMiddleware::class
+        ],
+        'validator' => [
+            \App\MyValidator\ProductValidator::class,
+            \App\MyValidator\OrderValidator::class
+        ]
+    ],
+
+    'redis' => [
+        'class' => \Swoft\Redis\RedisDb::class,
+        'host' => "127.0.0.1",
+        'port'  => 6379,
+        'database' => 0
+    ],
+
+    'redis.pool' => [
+        'class' => \Swoft\Redis\Pool::class,
+        'redisDb'   => \bean('redis'),
+        'minActive' => 2,
+        'maxActive' => 5,
+        'maxWait'   => 0,
+        'maxWaitTime'   => 0,
+        'maxIdleTime'   => 60
     ]
 ];

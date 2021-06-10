@@ -194,4 +194,22 @@ class OrdersMain extends Model
         return $this->createTime;
     }
 
+    private $orderItems;
+
+    /**
+     * @return mixed
+     */
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    /**
+     * @param mixed $orderItems
+     */
+    public function setOrderItems($orderItems): void
+    {
+        $this->orderItems = $orderItems;
+    }
+
 }
